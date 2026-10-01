@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="./payoo.png" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+      integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <title>Home</title>
+  </head>
+  <body class="bg-[#F4F5F7]">
+    <div class="w-[450px] mx-auto pb-20">
+      <!-- Header -->
+      <div
+        class="flex justify-between items-center p-5 bg-white border-b border-black/30"
+      >
+        <div class="flex items-center gap-3">
+          <button id="home_button" type="button">
+            <img src="./assets/Group.png" alt="home-logo" class="w-12" />
+          </button>
+          <div>
+            <h2 class="font-semibold text-lg">
+              $ <span id="balance">4500.00</span>
+            </h2>
+            <p class="text-black/50 text-sm">Available Balance</p>
+          </div>
+        </div>
+        <div>
+          <button class="btn" id="logout">
+            <i class="fa-solid fa-arrow-up-from-bracket -rotate-90"></i>
+            <span class="font-semibold">Logout</span>
+          </button>
+        </div>
+      </div>
+      <!-- Welcome Banner -->
+      <div class="p-5 bg-white">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-fire text-orange-400 text-xl"></i>
+          <h2 class="text-2xl font-bold">Welcome to Payooo!</h2>
+        </div>
+        <p class="mt-3 text-black/70">
+          Enjoy easy and convenient financial services with us. Cash out charges
+          are low and transaction speeds are instant.
+        </p>
+      </div>
+      <!-- Quick Actions Grid -->
+      <div class="p-5 bg-white grid grid-cols-3 gap-2 rounded-b-3xl">
+        <button
+          type="button"
+          id="show_add_form"
+          class="show_button cursor-pointer border rounded-lg p-4 flex flex-col justify-center items-center gap-1 focus:outline-none"
+        >
+          <img src="./assets/wallet1.png" alt="Add money" />
+          <span class="text-sm">Add money</span>
+        </button>
+
+        <button
+          type="button"
+          id="show_withdraw_form"
+          class="show_button cursor-pointer border rounded-lg p-4 flex flex-col justify-center items-center gap-1 focus:outline-none"
+        >
+          <img src="./assets/send1.png" alt="Cash out" />
+          <span class="text-sm">Cash Out</span>
+        </button>
+
+        <button
+          type="button"
+          id="show_transfer_form"
+          class="show_button cursor-pointer border rounded-lg p-4 flex flex-col justify-center items-center gap-1 focus:outline-none"
+        >
+          <img src="./assets/money1.png" alt="Transfer money" />
+          <span class="text-sm">Transfer Money</span>
+        </button>
+
+        <button
+          type="button"
+          id="show_bonus_form"
+          class="show_button cursor-pointer border rounded-lg p-4 flex flex-col justify-center items-center gap-1 focus:outline-none"
+        >
+          <img src="./assets/bonus1.png" alt="Get bonus" />
+          <span class="text-sm">Get Bonus</span>
+        </button>
+
+        <button
+          type="button"
+          id="show_pay_bill_form"
+          class="show_button cursor-pointer border rounded-lg p-4 flex flex-col justify-center items-center gap-1 focus:outline-none"
+        >
+          <img src="./assets/purse1.png" alt="Pay bill" />
+          <span class="text-sm">Pay bill</span>
+        </button>
+
+        <button
+          type="button"
+          id="show_transaction_form"
+          class="show_button cursor-pointer border rounded-lg p-4 flex flex-col justify-center items-center gap-1 focus:outline-none"
+        >
+          <img src="./assets/transaction1.png" alt="Transactions" />
+          <span class="text-sm">Transactions</span>
+        </button>
+      </div>
+      <!-- Latest Payment Section -->
+      <div class="form" id="latest_payment">
+        <div class="flex justify-between items-center my-6">
+          <h2 class="text-2xl font-bold">Latest Payment</h2>
+          <button
+            type="button"
+            class="text-sm font-semibold text-blue-500 hover:text-blue-700 cursor-pointer transition-colors"
+          >
+            View All
+          </button>
+        </div>
+        <div id="payment_list" class="rounded-3xl w-full flex flex-col gap-1">
+          <!-- Dynamic Payment items inserted via JavaScript will render here -->
+        </div>
+      </div>
+      <!-- Add Money -->
+      <div class="form" id="add_form" style="display: none">
+        <h2 class="text-2xl font-bold my-10">Add Money</h2>
+
+        <form
+          id="add_money_form"
+          class="bg-white p-6 rounded-3xl shadow-md w-full flex flex-col gap-4"
+        >
+          <!-- Bank Selection -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label class="label font-bold text-base text-black" for="add_bank"
+              >Select A Bank</label
+            >
+            <select
+              id="add_bank"
+              name="add_bank"
+              required
+              class="select placeholder-black/50 outline-none border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm"
+            >
+              <option value="" disabled selected>Select Bank</option>
+              <option value="AB bank">AB bank</option>
+              <option value="Bank Asia">Bank Asia</option>
+              <option value="Standard Chartered Bank">
+                Standard Chartered Bank
+              </option>
+              <option value="Southeast Bank">Southeast Bank</option>
+            </select>
+          </fieldset>
+
+          <!-- Account Number -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label
+              class="label font-bold text-base text-black"
+              for="add_account_number"
+              >Bank Account Number</label
+            >
+            <input
+              type="tel"
+              id="add_account_number"
+              name="add_account_number"
+              inputmode="numeric"
+              autocomplete="tel"
+              minlength="11"
+              maxlength="11"
+              pattern="01[3-9]\d{8}"
+              title="Please enter an 11-digit mobile number (e.g., 01712345678)"
+              required
+              placeholder="Enter 11 digit account number"
+              class="input placeholder-black/50 border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm focus:outline-none"
+            />
+          </fieldset>
+
+          <!-- Amount -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label class="label font-bold text-base text-black" for="add_amount"
+              >Amount</label
+            >
+            <input
+              type="number"
+              id="add_amount"
+              name="add_amount"
+              min="1"
+              step="any"
+              required
+              placeholder="Amount to add"
+              class="input placeholder-black/50 border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm focus:outline-none"
+            />
+          </fieldset>
+
+          <!-- PIN Number -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label class="label font-bold text-base text-black" for="add_pin"
+              >Pin Number</label
+            >
+            <input
+              type="password"
+              id="add_pin"
+              name="add_pin"
+              inputmode="numeric"
+              maxlength="4"
+              minlength="4"
+              pattern="\d{4}"
+              autocomplete="current-password"
+              required
+              placeholder="Enter 4 digit pin number"
+              class="input placeholder-black/50 border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm focus:outline-none"
+            />
+          </fieldset>
+
+          <!-- Submit Button -->
+          <button
+            id="add_money_button"
+            type="submit"
+            class="btn mt-3 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 border-none rounded-full w-full cursor-pointer transition-colors"
+          >
+            Add Money
+          </button>
+        </form>
+      </div>
+
+      <!-- Withdraw Money -->
+      <div class="form" id="withdraw_form" style="display: none">
+        <h2 class="text-2xl font-bold my-10">Cash Out</h2>
+
+        <form
+          id="withdraw_money_form"
+          class="bg-white p-6 rounded-3xl shadow-md w-full flex flex-col gap-4"
+        >
+          <!-- Agent Number -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label
+              class="label font-bold text-base text-black"
+              for="agent_number"
+              >Agent Number</label
+            >
+            <input
+              type="tel"
+              id="agent_number"
+              name="agent_number"
+              inputmode="numeric"
+              autocomplete="tel"
+              minlength="11"
+              maxlength="11"
+              pattern="01[3-9]\d{8}"
+              title="Please enter an 11-digit mobile number (e.g., 01712345678)"
+              required
+              placeholder="Enter 11 digit agent number"
+              class="input placeholder-black/50 border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm focus:outline-none"
+            />
+          </fieldset>
+
+          <!-- Amount -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label
+              class="label font-bold text-base text-black"
+              for="withdraw_amount"
+              >Amount</label
+            >
+            <input
+              type="number"
+              id="withdraw_amount"
+              name="withdraw_amount"
+              min="1"
+              step="any"
+              required
+              placeholder="Enter amount to withdraw"
+              class="input placeholder-black/50 border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm focus:outline-none"
+            />
+          </fieldset>
+
+          <!-- PIN Number -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label
+              class="label font-bold text-base text-black"
+              for="withdraw_pin"
+              >Pin Number</label
+            >
+            <input
+              type="password"
+              id="withdraw_pin"
+              name="withdraw_pin"
+              inputmode="numeric"
+              maxlength="4"
+              pattern="\d{4}"
+              autocomplete="current-password"
+              required
+              placeholder="Enter 4 digit pin number"
+              class="input placeholder-black/50 border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm focus:outline-none"
+            />
+          </fieldset>
+
+          <!-- Submit Button -->
+          <button
+            id="withdraw_money_button"
+            type="submit"
+            class="btn mt-3 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 border-none rounded-full w-full cursor-pointer transition-colors"
+          >
+            Cash Out
+          </button>
+        </form>
+      </div>
+
+      <!-- Transfer Money -->
+      <div class="form" id="transfer_form" style="display: none">
+        <h2 class="text-2xl font-bold my-10">Transfer Money</h2>
+
+        <form
+          id="transfer_money_form"
+          class="bg-white p-6 rounded-3xl shadow-md w-full flex flex-col gap-4"
+        >
+          <!-- User Account Number -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label
+              class="label font-bold text-base text-black"
+              for="transfer_account_number"
+              >User Account Number</label
+            >
+            <input
+              type="tel"
+              id="transfer_account_number"
+              name="transfer_account_number"
+              inputmode="numeric"
+              autocomplete="tel"
+              minlength="11"
+              maxlength="11"
+              pattern="01[3-9]\d{8}"
+              title="Please enter an 11-digit mobile number (e.g., 01712345678)"
+              pattern="01[4-9]\d{8}"
+              required
+              placeholder="Enter 11 digit account number"
+              class="input placeholder-black/50 border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm focus:outline-none"
+            />
+          </fieldset>
+
+          <!-- Amount -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label
+              class="label font-bold text-base text-black"
+              for="transfer_amount"
+              >Amount</label
+            >
+            <input
+              type="number"
+              id="transfer_amount"
+              name="transfer_amount"
+              min="1"
+              step="any"
+              required
+              placeholder="Enter amount to transfer"
+              class="input placeholder-black/50 border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm focus:outline-none"
+            />
+          </fieldset>
+
+          <!-- PIN Number -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label
+              class="label font-bold text-base text-black"
+              for="transfer_pin"
+              >Pin Number</label
+            >
+            <input
+              type="password"
+              id="transfer_pin"
+              name="transfer_pin"
+              inputmode="numeric"
+              maxlength="4"
+              pattern="\d{4}"
+              autocomplete="current-password"
+              required
+              placeholder="Enter 4 digit pin number"
+              class="input placeholder-black/50 border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm focus:outline-none"
+            />
+          </fieldset>
+
+          <!-- Submit Button -->
+          <button
+            id="transfer_money_button"
+            type="submit"
+            class="btn mt-3 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 border-none rounded-full w-full cursor-pointer transition-colors"
+          >
+            Send Now
+          </button>
+        </form>
+      </div>
+
+      <!-- Get Bonus -->
+      <div class="form" id="bonus_form" style="display: none">
+        <h2 class="text-2xl font-bold my-10">Get Bonus</h2>
+
+        <form
+          id="get_bonus_form"
+          class="bg-white p-6 rounded-3xl shadow-md w-full flex flex-col gap-4"
+        >
+          <!-- Bonus Coupon -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label class="label font-bold text-base text-black" for="coupon"
+              >Enter Bonus Coupon</label
+            >
+            <input
+              type="text"
+              id="coupon"
+              name="coupon"
+              required
+              placeholder="Enter your coupon"
+              class="input placeholder-black/50 border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm focus:outline-none"
+            />
+          </fieldset>
+
+          <!-- Submit Button -->
+          <button
+            id="bonus_money_button"
+            type="submit"
+            class="btn mt-3 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 border-none rounded-full w-full cursor-pointer transition-colors"
+          >
+            Get Bonus
+          </button>
+        </form>
+      </div>
+
+      <!-- Pay Bill -->
+      <div class="form" id="pay_bill_form" style="display: none">
+        <h2 class="text-2xl font-bold my-10">Pay Bill</h2>
+
+        <form
+          id="pay_bill_money_form"
+          class="bg-white p-6 rounded-3xl shadow-md w-full flex flex-col gap-4"
+        >
+          <!-- Select Biller / Bill Type -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label
+              class="label font-bold text-base text-black"
+              for="biller_type"
+              >Select to Pay</label
+            >
+            <select
+              id="biller_type"
+              name="biller_type"
+              required
+              class="select placeholder-black/50 outline-none border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm"
+            >
+              <option value="" disabled selected>Select Option</option>
+              <option value="Electricity Bill">Electricity Bill</option>
+              <option value="Wifi Bill">Wifi Bill</option>
+              <option value="Gas Bill">Gas Bill</option>
+            </select>
+          </fieldset>
+
+          <!-- Biller Account Number -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label
+              class="label font-bold text-base text-black"
+              for="biller_account_number"
+              >Biller Account Number</label
+            >
+            <input
+              type="tel"
+              id="biller_account_number"
+              name="biller_account_number"
+              inputmode="numeric"
+              autocomplete="tel"
+              minlength="11"
+              maxlength="11"
+              pattern="01[3-9]\d{8}"
+              title="Please enter an 11-digit mobile number (e.g., 01712345678)"
+              required
+              placeholder="Enter Biller account number"
+              class="input placeholder-black/50 border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm focus:outline-none"
+            />
+          </fieldset>
+
+          <!-- Amount -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label
+              class="label font-bold text-base text-black"
+              for="biller_amount"
+              >Amount</label
+            >
+            <input
+              type="number"
+              id="biller_amount"
+              name="biller_amount"
+              min="1"
+              step="any"
+              required
+              placeholder="Amount to pay"
+              class="input placeholder-black/50 border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm focus:outline-none"
+            />
+          </fieldset>
+
+          <!-- PIN Number -->
+          <fieldset class="fieldset flex flex-col gap-2 border-none p-0 m-0">
+            <label class="label font-bold text-base text-black" for="biller_pin"
+              >Pin Number</label
+            >
+            <input
+              type="password"
+              id="biller_pin"
+              name="biller_pin"
+              inputmode="numeric"
+              maxlength="4"
+              pattern="\d{4}"
+              autocomplete="current-password"
+              required
+              placeholder="Enter 4 digit pin number"
+              class="input placeholder-black/50 border-none bg-[#F4F5F7] p-4 rounded-full w-full text-sm focus:outline-none"
+            />
+          </fieldset>
+
+          <!-- Submit Button -->
+          <button
+            id="pay_bill_button"
+            type="submit"
+            class="btn mt-3 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 border-none rounded-full w-full cursor-pointer transition-colors"
+          >
+            Pay Now
+          </button>
+        </form>
+      </div>
+      <!-- Transaction Section -->
+      <div class="form" id="transaction_form" style="display: none">
+        <!-- Header with View All Link -->
+        <div class="flex justify-between items-center my-10">
+          <h2 class="text-2xl font-bold">Transaction History</h2>
+          <button
+            type="button"
+            class="text-sm font-semibold text-blue-500 hover:text-blue-700 cursor-pointer transition-colors"
+          >
+            View All
+          </button>
+        </div>
+
+        <!-- Transactions List Container -->
+        <div
+          id="transaction_list"
+          class="rounded-3xl w-full flex flex-col gap-1"
+        >
+          <!-- Dynamic transaction items inserted via JavaScript will render here -->
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/home.js"></script>
+  </body>
+</html>
